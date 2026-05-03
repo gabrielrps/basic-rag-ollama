@@ -71,6 +71,12 @@ Unlike basic RAG systems, this engine supports targeted search:
       "fileName": "book.pdf"
     }
     ```
+*   **Response**:
+    ```json
+    {
+    "response": "I'd be happy to help!The main points of this document are:\n\n1. A set of exercises on plane Euclidean geometry, covering topics such as triangles, polygons, circles, and angles.\n2. The exercises are grouped into four categories:\n\t* Area (problems 1-4): determining the area of various shapes, including triangles, polygons, and circles.\n\t* Segment measurement (problem 1): showing that there is a unique point C between two points A and B such that m(AC) = a for any real positive value a.\n\t* Circle properties (problem 2): approximating the length of a circle.\n\t* Angle properties (problems 1-3): exploring the properties of bisections, perpendicularity, and similarity.\n\nThese exercises seem to be focused on applying geometric concepts to solve problems."
+    }
+    ```    
 
 ---
 
