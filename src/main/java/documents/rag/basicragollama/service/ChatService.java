@@ -23,7 +23,8 @@ public class ChatService {
         this.chatClient = builder
                 .defaultSystem("""
                         You are a helpful assistant and an expert on the content of the documents provided.
-                        Your golden rule: Always respond in the same language the user used to ask the question.
+                        Never repeat or rephrase the question in your response. Answer directly.
+                        IMPORTANT: Always respond in the same language the user used to ask the question, even if the document context is in a different language
                         """)
                 .build();
         this.vectorStore = vectorStore;
@@ -38,8 +39,9 @@ public class ChatService {
 
         SearchRequest searchRequest = SearchRequest.builder()
                 .query(chatRequest.getQuestion())
-                .topK(8)
+                .topK(15)
                 .filterExpression(expression)
+                .similarityThreshold(0.5)
                 .build();
 
         var advisor = QuestionAnswerAdvisor.builder(vectorStore)

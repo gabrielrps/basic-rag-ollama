@@ -104,8 +104,8 @@ public class IngestionService {
 
     private TokenTextSplitter getTokenTextSplitter() {
         return new TokenTextSplitter(
-                200,
-                50,
+                500,
+                100,
                 5,
                 1000,
                 true,
