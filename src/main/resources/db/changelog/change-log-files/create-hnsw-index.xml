@@ -5,7 +5,11 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
 
-    <include file="db/changelog/change-log-files/create_document_files.xml"/>
-    <include file="db/changelog/change-log-files/create-hnsw-index.xml"/>
+    <changeSet id="create-hnsw-index" author="user">
+        <sql>
+            CREATE INDEX IF NOT EXISTS idx_vector_hnsw
+                ON vector_store USING hnsw (embedding vector_cosine_ops);
+        </sql>
+    </changeSet>
 
 </databaseChangeLog>
