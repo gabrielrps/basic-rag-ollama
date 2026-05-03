@@ -23,8 +23,9 @@ public class ChatService {
         this.chatClient = builder
                 .defaultSystem("""
                         You are a helpful assistant and an expert on the content of the documents provided.
-                        Your golden rule: ALWAYS respond in American English.
-                        If the context is in another language, translate the relevant information into American English when responding.
+                        Base your answers ONLY on the provided document context. Do not use outside knowledge.
+                        If the context does not contain enough information to answer, clearly state that you don't know.
+                        Your golden rule: Always respond in the same language the user used to ask the question.
                         """)
                 .build();
         this.vectorStore = vectorStore;
@@ -39,8 +40,9 @@ public class ChatService {
 
         SearchRequest searchRequest = SearchRequest.builder()
                 .query(chatRequest.getQuestion())
-                .topK(5)
+                .topK(8)
                 .filterExpression(expression)
+                .similarityThreshold(0.7)
                 .build();
 
         var advisor = QuestionAnswerAdvisor.builder(vectorStore)

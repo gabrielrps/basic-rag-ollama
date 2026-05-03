@@ -65,7 +65,7 @@ public class IngestionService {
 
     private void deleteVectorIfExists(String fileHash) {
         var filterExpression = new FilterExpressionBuilder().eq("file_hash", fileHash).build();
-        vectorStore.delete(filterExpression.toString());
+        vectorStore.delete(filterExpression);
     }
 
     private List<Document> sanitizedDocs(List<Document> splitDocuments, String fileHash) {
