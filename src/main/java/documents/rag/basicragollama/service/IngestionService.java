@@ -10,6 +10,7 @@ import org.springframework.ai.reader.TextReader;
 import org.springframework.ai.reader.pdf.PagePdfDocumentReader;
 import org.springframework.ai.transformer.splitter.TokenTextSplitter;
 import org.springframework.ai.vectorstore.VectorStore;
+import org.springframework.ai.vectorstore.filter.FilterExpressionBuilder;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
@@ -63,8 +64,8 @@ public class IngestionService {
     }
 
     private void deleteVectorIfExists(String fileHash) {
-        String filter = String.format("file_hash == '%s'", fileHash);
-        vectorStore.delete(filter);
+        var filterExpression = new FilterExpressionBuilder().eq("file_hash", fileHash).build();
+        vectorStore.delete(filterExpression.toString());
     }
 
     private List<Document> sanitizedDocs(List<Document> splitDocuments, String fileHash) {
@@ -112,7 +113,7 @@ public class IngestionService {
         );
     }
 
-    private String calculateHash(byte[] fileBytes) throws IOException {
+    private String calculateHash(byte[] fileBytes){
         return DigestUtils.md5DigestAsHex(fileBytes);
     }
 }
