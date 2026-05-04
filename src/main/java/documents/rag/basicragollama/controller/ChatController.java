@@ -2,6 +2,7 @@ package documents.rag.basicragollama.controller;
 
 import documents.rag.basicragollama.controller.request.ChatRequest;
 import documents.rag.basicragollama.controller.response.ChatResponse;
+import documents.rag.basicragollama.controller.response.ChatWithSourcesResponse;
 import documents.rag.basicragollama.service.ChatService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,5 +20,10 @@ public class ChatController {
     @PostMapping(value = "/question")
     public ResponseEntity<ChatResponse> askQuestionAboutFile(@RequestBody @Valid ChatRequest chatRequest) {
         return ResponseEntity.ok(chatService.askQuestionAboutFile(chatRequest));
+    }
+
+    @PostMapping(value = "/question-with-sources")
+    public ResponseEntity<ChatWithSourcesResponse> askQuestionAboutFileWithSources(@RequestBody @Valid ChatRequest chatRequest) {
+        return ResponseEntity.ok(chatService.askQuestionAboutFileWithSources(chatRequest));
     }
 }
